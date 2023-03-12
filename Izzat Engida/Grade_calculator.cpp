@@ -71,8 +71,5 @@ total=final+test+quiz+assignment+project;//sum total of the results
 }else if(total>=30){
     cout<<"D"<<endl;
 }else {
-    cout<<"F"<<endl;
-}
-}
-return 0;
-}
+    cout<<"F"<<endl;}}
+return 0;}
