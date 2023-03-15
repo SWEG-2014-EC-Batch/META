@@ -215,6 +215,7 @@ if (i==Input){
     } if(c==Input){
         cout<<Input<<" is a perfect number";
     }else{cout<<Input<<" isn't a perfect number";}}
+return 0;
 } 
     
 
