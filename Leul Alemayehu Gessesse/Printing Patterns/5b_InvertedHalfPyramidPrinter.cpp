@@ -1,4 +1,4 @@
-//base and height are both six units
+//The program prints an upside-down right triangle of asterisks whose base and height are both six units
 #include <iostream>
 int main(){
     char asteriskArray[6][6];
