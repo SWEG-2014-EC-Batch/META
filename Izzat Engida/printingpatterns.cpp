@@ -1,4 +1,4 @@
-/*This progrmacan take inputs, has menu, and lastly it can ran more 
+/*This program can take inputs, has menu, and lastly it can ran more 
 than one time unless 16 is entered.
 */
 #include<iostream>
