@@ -1,4 +1,4 @@
-//base and height are both six units
+//The program prints a hollow inverted right triangle whose base and height are both six units
 #include <iostream>
 int main(){
     char asteriskArray[6][6];
