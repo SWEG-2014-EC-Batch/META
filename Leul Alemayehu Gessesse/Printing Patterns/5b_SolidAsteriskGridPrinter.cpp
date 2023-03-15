@@ -1,3 +1,4 @@
+//THe program prints a solid grid of asterisks
 #include <iostream>
 int main(){
     char asteriskArray[28];
