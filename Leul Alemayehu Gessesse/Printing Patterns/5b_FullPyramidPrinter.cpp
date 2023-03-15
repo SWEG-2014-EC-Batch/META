@@ -1,4 +1,4 @@
-//The "pyramid" is a triangle of asterisks with a base of 11 (* * * * * *) and height of 6
+//The "pyramid" is a triangle of asterisks with a base length of 11 units (* * * * * *) and height of 6 units
 #include <iostream>
 int main(){
     char asteriskArray[6][11];
