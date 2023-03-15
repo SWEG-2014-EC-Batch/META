@@ -1,4 +1,4 @@
-//This program prints the letter a–e repeatedly, in five rows
+//This program prints the letters a–e repeatedly, in five rows
 #include <iostream>
 int main(){
     char printedGridArray[5][5];
