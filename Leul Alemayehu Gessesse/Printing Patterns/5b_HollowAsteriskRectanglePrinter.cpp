@@ -1,3 +1,4 @@
+//The program prints a hollow rectangle made of asterisks
 #include <iostream>
 int main(){
     char asteriskArray[56];
