@@ -1,3 +1,4 @@
+//The program prints the numbers 10–49 in a number of rows defined by the user
 #include <iostream>
 int main(){
     int rowLength = 1;
