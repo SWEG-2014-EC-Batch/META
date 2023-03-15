@@ -1,3 +1,4 @@
+//This program prints the numbers 10–40 in four rows of ten numbers each
 #include <iostream>
 int main(){
     int digitArray[40];
