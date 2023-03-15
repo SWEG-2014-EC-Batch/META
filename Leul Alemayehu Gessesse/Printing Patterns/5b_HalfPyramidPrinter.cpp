@@ -1,4 +1,4 @@
-//base and height are both six units
+//The program prints a right-angled triangle whose hypotenuse is to the right and whose base and height are both six units long
 #include <iostream>
 int main(){
     char asteriskArray[6][6];
