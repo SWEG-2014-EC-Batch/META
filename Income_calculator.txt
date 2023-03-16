@@ -1,0 +1,77 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int main ()
+{
+  float a, net_Pay, gr_Slry, pension, incm_Tax, wrk_Hr, Ovrtm_Pay, prs,
+    ovrtm_Rt;
+
+  cout << "Enter the Gross salary: ";
+  cin >> gr_Slry;
+  cout << "Enter the Worked hours: ";
+  cin >> wrk_Hr;
+
+  if (gr_Slry > 0)
+    {
+      if (wrk_Hr > 40)
+	{
+	  cout << "Enter the over-time bonus rate( %): ";
+	  cin >> ovrtm_Rt;
+	  if (ovrtm_Rt > 0)
+	    {
+	      a = gr_Slry / 40;	// a to calculate 1hour payment without overtime
+	      Ovrtm_Pay = ((ovrtm_Rt / 100) * a * (40 - wrk_Hr)); // overtime pay= overtime rate*a*overtime
+	    }
+	  else
+	    {
+	      cout << "Invalid overtime rate.";
+	    }
+	}
+      else if (wrk_Hr <= 0)
+	{
+	  cout << "Invalid entry of working hour.";
+	}
+
+      if (gr_Slry <= 200)
+	{
+	  prs = 0;
+	}
+      else if (gr_Slry > 200 && gr_Slry <= 600)
+	{
+	  prs = 0.1;
+	}
+      else if (gr_Slry > 600 && gr_Slry <= 1200)
+	{
+	  prs = 0.15;
+	}
+      else if (gr_Slry > 1200 && gr_Slry <= 2000)
+	{
+	  prs = 0.2;
+	}
+      else if (gr_Slry > 2000 && gr_Slry <= 3500)
+	{
+	  prs = 0.25;
+	}
+      else if (gr_Slry > 3500)
+	{
+	  prs = 30;
+	}
+
+      if (wrk_Hr > 0)
+	{
+	  incm_Tax = prs * gr_Slry;
+	  pension = 0.07 * gr_Slry;	//avarage pension is estimated to be 7% =0.07 
+
+	  net_Pay = (gr_Slry - pension - incm_Tax) + Ovrtm_Pay;
+	  cout << endl << "Net salary of the employee is:" << net_Pay;
+	}
+    }
+  else
+    {
+      cout << "Invalid Gross income.";
+    }
+
+  return 0;
+}
