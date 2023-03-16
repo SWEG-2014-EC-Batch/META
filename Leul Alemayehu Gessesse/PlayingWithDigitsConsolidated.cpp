@@ -2,8 +2,9 @@
 #include <cmath>
 int main(){
     int choice;
-    std::cout << "Welcome" << '\n' << "Please select the digit manipulation you wish to perform: " << '\n' << '\n'
-              << "To check whether a number is an Armstrong number, press 1" << '\n'
+    std::cout << "Welcome" << '\n' << "Please select the digit manipulation you wish to perform: " << '\n' << '\n';
+    startpoint:
+    std::cout << "To check whether a number is an Armstrong number, press 1" << '\n'
               << "To count the number of digits a number has, press 2" << '\n'
               << "To reverse the digits of a number, press 3" << '\n'
               << "To find the sum of the digits of a number, press 4" << '\n'
@@ -209,5 +210,14 @@ int main(){
     else{
         std::cerr << "Error: Invalid choice entered. Please try again." << std::endl;
     }
-    return 0;
+    char confirmation;
+    std::cout << std::endl << "Try again (Y/N)? ";
+    std::cin >> confirmation;
+    if(tolower(confirmation) == 'y'){
+        std::cout << std::endl;
+        goto startpoint;
+    }
+    else{
+        return 0;
+    }
 }
