@@ -1,0 +1,38 @@
+//printPattern1xl.cpp 
+#include <iostream>
+using namespace std;
+int main ()
+{
+  int _size = 1;
+
+  char lt = 'A';
+
+  for (int size = 1; size <= 4; size++)
+    {
+      for (int size = 1; size <=6; size++)
+  {
+    cout << lt++ << " ";
+
+  } 
+      cout << endl;
+
+    }cout<<endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return 0;
+}
