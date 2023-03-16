@@ -23,8 +23,8 @@ int main(){
         std::cin >> inputNumber;
         int inputNumberPrintableCopy = inputNumber;
         if(inputNumber > 999){
-            std::cerr << "Error: Armstrong numbers have at most three digits.";
-            return -1;
+            std::cerr << "Error: Armstrong numbers have at most three digits." <<std::endl;
+            goto choicepoint;
         }
         while(inputNumber != 0){
             digitCubeSum += pow(inputNumber%10,3);
@@ -210,6 +210,7 @@ int main(){
     else{
         std::cerr << "Error: Invalid choice entered. Please try again." << std::endl;
     }
+    choicepoint:
     char confirmation;
     std::cout << std::endl << "Try again (Y/N)? ";
     std::cin >> confirmation;
