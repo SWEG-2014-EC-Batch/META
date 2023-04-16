@@ -45,7 +45,7 @@ int main()
 
 
 
-    int count=0; //counts number of error of each transaction made by the customer
+    int count=0;                                                  //counts number of error of each transaction made by the customer
     cout<<"\n \t Transaction: ";
     cin>>insert;
 
@@ -58,12 +58,12 @@ int main()
             cout<<"which account number do you want? RANGE (1001--1101 only): ";
             cin>>accnum;
 
-            if (accnum>1101||accnum<1001)  // to restrict all accounts between 1001 & 1101
+            if (accnum>1101||accnum<1001)           // to restrict all accounts between 1001 & 1101
             {
                 cout<<"  Beyond the scope of account number boundary,please RETRY "<<endl; goto ao;}
 
-            size=accnum - 1001; // subtructing each account number by 1001 make the size amount start from 0 to 99
-            sameAccount[size]=accnum; // sameAccount uses to hold of newly opened accounts besides arryAccount
+            size=accnum - 1001;                        // subtructing each account number by 1001 make the size amount start from 0 to 99
+            sameAccount[size]=accnum;                  // sameAccount uses to hold of newly opened accounts besides arryAccount
 
              if(arryAccount[size]!=sameAccount[size])
                 {
@@ -101,7 +101,7 @@ int main()
                 size=accnum - 1001;
                 sameAccount[size]=accnum;
             if(arryAccount[size]==sameAccount[size])
-                    { // checkes if entered account number have been opened 
+                    {            // checkes if entered account number have been opened 
                         ab:
                         cout<<"Enter the pin number of the account: ";
                         cin>>pinNum;
