@@ -105,3 +105,15 @@ int main()
                         ab:
                         cout<<"Enter the pin number of the account: ";
                         cin>>pinNum;
+                 if(arryPinNum[size] == pinNum){cout<<"\t \\\\ Your remaining balance is: "<<arryAmount[size]<<" ETB \\\\ \n";}
+                        else {
+                            if(3<=count){cout<<"  % Too many incorrect attempts %"<<endl ;goto one;} count++;
+                              cout<<"  You have entered incorrect pin number. Please try again. \n";goto ab;
+                             }
+                    }
+
+                 else {
+                        if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
+                        cout<<"Such account number did't exist. Please try again.\n"; goto bb;
+                      }
+            }
