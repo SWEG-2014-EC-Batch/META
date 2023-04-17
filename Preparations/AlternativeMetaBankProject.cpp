@@ -8,10 +8,26 @@ int main(){
     int accountCount; //user-defined number of accounts to manage
     int currentManagedAccounts = 0; //goes up every time an account is opened
     int managerialPin = 0;
-    cout << "Select a managerial PIN: \n";
+    // use a loop to print a border of asterisks, 80 long, above the menu
+    for (int i = 0; i < 80; i++) {
+        cout << "*";
+    }
+    cout << endl;
+
+    // print the menu title with some spaces for alignment
+    cout << setw(40) << right << "Welcome to META Bank" << endl;
+
+    // print the menu options with some spaces for alignment
+    cout << "\nPlease select a managerial PIN: ";
     cin >> managerialPin;
-    cout << "[META] How many accounts should be managed? Enter at least 100: ";
+    cout << "\nPlease enter the number of accounts to be managed (at least 100): ";
     cin >> accountCount;
+
+    // use another loop to print a border of asterisks, 80 long, below the menu
+    for (int i = 0; i < 0; i++) {
+        cout << "*";
+    }
+    cout << endl;
     float **bankDataPtr = new float*[3]; //holds account numbers, PINs, and account balances. The three rows hold acct. no.s, PINs, and balances, and columns hold individual accounts
     for (int i = 0; i < 3; i++) {
         bankDataPtr[i] = new float[accountCount];
@@ -37,10 +53,31 @@ int main(){
     }
     char transactionType = 'E'; //used to determine what transaction to do, AND is often used as a confirmation letter
     do{
-        cout << "Which transaction would you like to perform? These are your options: ";
-        cout << "\n\t(O)pen an account" << "\n\tDo a (B)alance inquiry" << "\n\t(D)eposit" << "\n\t(W)ithdrawal" 
-             << "\n\tAccount (C)losure" << "\n\t(I)nterest computation (Manager only)" << "\n\t(P)rint all accounts and balances (Manager only)"
-             << "\n\t(E)xit program and close all accounts (Manager only)" << endl << "Choice: ";
+        // use a loop to print a border of asterisks above the menu
+        for (int i = 0; i < 80; i++) {
+            cout << "*";
+        }
+        cout << endl;
+
+        // print the menu options with some spaces for alignment
+        cout << "\nWhich transaction would you like to perform? These are your options: \n"
+            << "\n\t(O)pen an account"
+            << "\n\tDo a (B)alance inquiry"
+            << "\n\t(D)eposit"
+            << "\n\t(W)ithdrawal" 
+            << "\n\tAccount (C)losure"
+            << "\n\t(I)nterest computation (Manager only)"
+            << "\n\t(P)rint all accounts and balances (Manager only)"
+            << "\n\t(E)xit program and close all accounts (Manager only)\n\n";
+
+        // use another loop to print a border of asterisks below the menu
+        for (int i = 0; i < 80; i++) {
+            cout << "*";
+        }
+        cout << endl;
+
+        // print the prompt for user input
+        cout << "Choice: ";
         cin >> transactionType;
         int pinInputAttempts = 0; //counts PIN inputs for ALL transactions
         int putativePin = 0; //the user PIN the program requires the user to enter 
