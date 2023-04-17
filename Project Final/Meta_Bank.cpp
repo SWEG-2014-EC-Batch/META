@@ -55,7 +55,7 @@ int main()
     if(insert=='O'||insert=='o')
         {   
         ao:
-            cout<<"which account number do you want? RANGE (1001--1101 only): ";
+            cout<<"Which account number do you want? RANGE (1001--1101 only): ";
             cin>>accnum;
 
             if (accnum>1101||accnum<1001)           // to restrict all accounts between 1001 & 1101
@@ -81,10 +81,10 @@ int main()
                     cin>>pinNum;   
 
                     arryPinNum[size]=pinNum;
-                    cout<<"\t \\\\ Account number "<<arryAccount[size]<<" have opened successfully.\\\\ \n";
+                    cout<<"\t \\\\ Account number "<<arryAccount[size]<<" has been opened successfully.\\\\ \n";
 
                 }
-                else {cout <<"  This Account number exist previously, please enter another one. \n";} 
+                else {cout <<"  This account number is in use already; please enter another one. \n";} 
         }
 //This block is used to find the balance in a specific account 
     else if(insert=='B'||insert=='b')
@@ -103,23 +103,23 @@ int main()
             if(arryAccount[size]==sameAccount[size])
                     {            // checkes if entered account number have been opened 
                         ab:
-                        cout<<"Enter the pin number of the account: ";
+                        cout<<"Enter account PIN: ";
                         cin>>pinNum;
                  if(arryPinNum[size] == pinNum){cout<<"\t \\\\ Your remaining balance is: "<<arryAmount[size]<<" ETB \\\\ \n";}
                         else {
                             if(3<=count){cout<<"  % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                              cout<<"  You have entered incorrect pin number. Please try again. \n";goto ab;
+                              cout<<"  Incorrect PIN entered. Please try again. \n";goto ab;
                              }
                     }
 
                  else {
                         if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                        cout<<"Such account number did't exist. Please try again.\n"; goto bb;
+                        cout<<"Nonexistent account number entered. Please retry.\n"; goto bb;
                       }
             }
  else if(insert=='D'||insert=='d')
             {   ad:
-                cout<<"Enter the account number you want to deposit money: ";
+                cout<<"Enter the account number where you want to deposit money: ";
                 cin>>accnum;
                 
                 if (accnum>1101||accnum<1001) {
@@ -142,7 +142,7 @@ int main()
                     }
                 else {
                     if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                    cout<<"  Such account number did't exist. please try again.\n"; goto ad;
+                    cout<<"  Nonexistent account number entered. Please retry.\n"; goto ad;
                      }
             }
 
@@ -161,12 +161,12 @@ int main()
                 if(closedAccount[size] != 0 ) 
                 {                // It checkes whether closedAccount have been assined the value of arryAccount, which is different from 0
                     cout<<"This Account is a closed one. You can't withdraw any Money from it.\n\n";
-                    cout<<"Do you want to un-sclose your account? (Y/N): ";
+                    cout<<"Do you want to un-close your account? (Y/N): ";
                     cin>>insert;
                     if(insert == 'Y' || insert == 'y' ) 
 			{ 
 		    		closedAccount[size]=0; 
-		   		cout<<"\n\t \\\\ Your account is disclosed. \\\\\n";
+		   		cout<<"\n\t \\\\ Your account is un-closed. \\\\\n";
 			} 
                     		goto one;
                     
@@ -176,7 +176,7 @@ int main()
                  if(arryAccount[size]==sameAccount[size])
                     {
                         aw:
-                        cout<<"Enter the pin number of the account: ";
+                        cout<<"Enter account PIN: ";
                         cin>>pinNum;
                         if(arryPinNum[size] == pinNum)
                         {
@@ -223,7 +223,7 @@ int main()
             if(arryAccount[size]==sameAccount[size])
                 {
                     ac:
-                    cout<<"Enter the pin number of the account: ";
+                    cout<<"Enter account PIN: ";
                     cin>>pinNum;
                     if (arryPinNum[size]==pinNum)
                         {   
@@ -232,11 +232,11 @@ int main()
                         }
                         
                     else {if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                         cout<<"  You have entered incorrect pin number. please try again "<<endl; goto ac;}
+                         cout<<"  Incorrect PIN entered. Please try again "<<endl; goto ac;}
                 }
                 else {
                       if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                      cout<<"  Invalid account number. please try again.\n"; goto bc;
+                      cout<<"  Invalid account number. Please try again.\n"; goto bc;
                      }
 
             }
@@ -259,7 +259,7 @@ int main()
                     }
                 else {
                         if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;}
-                        cout<<"  You have entered incorrect pin number. please try again "<<endl; count++; goto ai;
+                        cout<<"  Incorrect PIN entered. Please try again "<<endl; count++; goto ai;
                          }
             }
 
@@ -279,7 +279,7 @@ int main()
                         cout<<"__________________________________________________________________________________________________________________________________________\n";
                     }            // Tabular form of opened accounts with their pperspective details
                 else {
-                        cout<<"  You have entered incorrect pin number. please try again."<<endl;
+                        cout<<"  Incorrect PIN entered. Please try again."<<endl;
                         if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++; goto ap;
                      }
                      
@@ -302,7 +302,7 @@ int main()
             cout<<"\t\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*****************************///////////////////\n";return 0;
                     }
             else {
-                    cout<<"  you have entered incorrect pin number. Please try again. "<<endl;
+                    cout<<"  Incorrect PIN entered. Please try again. "<<endl;
                     if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;goto ae;
                  }
         }
