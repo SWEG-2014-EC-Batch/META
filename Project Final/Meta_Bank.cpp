@@ -46,7 +46,7 @@ int main()
 
 
     int count=0;                                                  //counts number of error of each transaction made by the customer
-    cout<<"\n \t Transaction: ";
+    cout<<"\n \t Menu command: ";
     cin>>insert;
 
 
