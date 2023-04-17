@@ -117,7 +117,99 @@ int main()
                         cout<<"Such account number did't exist. Please try again.\n"; goto bb;
                       }
             }
+ else if(insert=='D'||insert=='d')
+            {   ad:
+                cout<<"Enter the account number you want to deposit money: ";
+                cin>>accnum;
+                
+                if (accnum>1101||accnum<1001) {
+                    if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
+                    cout<<"  Beyond the scope of account number boundary, please RETRY "<<endl; goto ad;}
+                    
+                size=accnum - 1001;
+                sameAccount[size]=accnum;
+            if(arryAccount[size]==sameAccount[size])
+                    
+                    {
+                        cout<<"How much do you want to deposit: ";                              
+                        cin>>transactionAmount;
+                        if(transactionAmount>=0){
+                        depositAmount[size] += transactionAmount;
+                        arryAmount[size] = arryAmount[size] + transactionAmount;
+                        cout<<"\t \\\\ Money deposited successfully. \\\\"<<endl;}
+                        
+                        else{cout<<"!! Negative amount is not computable. !! \n";}
+                    }
+                else {
+                    if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
+                    cout<<"  Such account number did't exist. please try again.\n"; goto ad;
+                     }
+            }
 
+    else if (insert=='W'||insert=='w')
+            {   bw:
+                 cout<<"Enter the account number: ";
+                 cin>>accnum;
+                if (accnum>1101||accnum<1001)  
+                {
+                    if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
+                    cout<<"  Beyond the scope of account number boundary, please RETRY "<<endl; goto bw;
+                    
+                }
+                
+                size=accnum - 1001;
+                if(closedAccount[size] != 0 ) 
+                {                // It checkes whether closedAccount have been assined the value of arryAccount, which is different from 0
+                    cout<<"This Account is a closed one. You can't withdraw any Money from it.\n\n";
+                    cout<<"Do you want to disclose your account? (Y/N): ";
+                    cin>>insert;
+                    if(insert == 'Y' || insert == 'y' ) 
+			{ 
+		    		closedAccount[size]=0; 
+		   		cout<<"\n\t \\\\ Your account is disclosed. \\\\\n";
+			} 
+                    		goto one;
+                    
+                }
+                
+                 sameAccount[size]=accnum;
+                 if(arryAccount[size]==sameAccount[size])
+                    {
+                        aw:
+                        cout<<"Enter the pin number of the account: ";
+                        cin>>pinNum;
+                        if(arryPinNum[size] == pinNum)
+                        {
+                            cout<<"How much you want to withdraw: ";
+                            cin>>transactionAmount;
+                           if(transactionAmount>=0)
+                           {
+                                
+                                if (arryAmount[size] >= transactionAmount) {  
+                                    withdrawAmount[size] += transactionAmount;
+                                    arryAmount[size] = arryAmount[size] - transactionAmount;
+                                    cout<<"\t \\\\ Money withdrawn successfully.\\\\ \n";}
+                                    
+                                else  {cout<<"  Sorry insufficient amount."<<endl;}
+                                    
+                           }
+                          else{cout<<"!! Negative amount is not computable. !! \n";}
+
+                           
+                        }
+
+                        else {
+                            if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
+                            cout<<"  You have entered incorrect pin number. please try again "<<endl; goto aw;
+                             }
+                    }
+                     else {
+                         if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
+                         cout<<"  Such account number did't exist. please try again.\n"; goto bw;
+                          }
+            }
+
+    
 
 
 else if (insert=='C'||insert=='c')
