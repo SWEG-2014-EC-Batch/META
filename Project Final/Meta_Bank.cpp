@@ -27,7 +27,7 @@ int main()
       withdrawAmount[size] = 0;
     }
 
-    cout<<fixed<<setprecision(2);
+    cout<<fixed<<setprecision(2); //restricts all financial arithmetic to within two decimal places
 
     cout<<"\n\n\t*******WELCOME TO BANK OF META*******\n\n";
 
@@ -45,7 +45,7 @@ int main()
 
 
 
-    int count=0;                                                  //counts number of error of each transaction made by the customer
+    int count=0;                                                  //counts number of errors in each transaction made by the customer
     cout<<"\n \t Menu command: ";
     cin>>insert;
 
@@ -60,15 +60,15 @@ int main()
 
             if (accnum>1101||accnum<1001)           // to restrict all accounts between 1001 & 1101
             {
-                cout<<"  Beyond the scope of account number boundary,please RETRY "<<endl; goto ao;}
+                cout<<"  Outside the account number range, please RETRY "<<endl; goto ao;}
 
-            size=accnum - 1001;                        // subtructing each account number by 1001 make the size amount start from 0 to 99
+            size=accnum - 1001;                        // subtracting each account number by 1001 make the size amount start from 0 to 99
             sameAccount[size]=accnum;                  // sameAccount uses to hold of newly opened accounts besides arryAccount
 
              if(arryAccount[size]!=sameAccount[size])
                 {
                     co:
-            cout<<"Deposit an initial money for your account: ";
+            cout<<"Input initial deposit for your account: ";
                     cin>>transactionAmount;
 
                     if(transactionAmount < 25)
@@ -95,7 +95,7 @@ int main()
                 {
                 if(3<=count){
                 cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                cout<<"  Beyond the scope of account number boundary, please RETRY "<<endl; goto bb;
+                cout<<"  Outside the account number range, please RETRY "<<endl; goto bb;
                 }
 
                 size=accnum - 1001;
@@ -124,7 +124,7 @@ int main()
                 
                 if (accnum>1101||accnum<1001) {
                     if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                    cout<<"  Beyond the scope of account number boundary, please RETRY "<<endl; goto ad;}
+                    cout<<"  Outside the account number range, please RETRY "<<endl; goto ad;}
                     
                 size=accnum - 1001;
                 sameAccount[size]=accnum;
@@ -153,7 +153,7 @@ int main()
                 if (accnum>1101||accnum<1001)  
                 {
                     if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                    cout<<"  Beyond the scope of account number boundary, please RETRY "<<endl; goto bw;
+                    cout<<"  Outside the account number range, please RETRY "<<endl; goto bw;
                     
                 }
                 
@@ -161,7 +161,7 @@ int main()
                 if(closedAccount[size] != 0 ) 
                 {                // It checkes whether closedAccount have been assined the value of arryAccount, which is different from 0
                     cout<<"This Account is a closed one. You can't withdraw any Money from it.\n\n";
-                    cout<<"Do you want to disclose your account? (Y/N): ";
+                    cout<<"Do you want to un-sclose your account? (Y/N): ";
                     cin>>insert;
                     if(insert == 'Y' || insert == 'y' ) 
 			{ 
@@ -180,7 +180,7 @@ int main()
                         cin>>pinNum;
                         if(arryPinNum[size] == pinNum)
                         {
-                            cout<<"How much you want to withdraw: ";
+                            cout<<"How much do you wish to withdraw: ";
                             cin>>transactionAmount;
                            if(transactionAmount>=0)
                            {
@@ -190,7 +190,7 @@ int main()
                                     arryAmount[size] = arryAmount[size] - transactionAmount;
                                     cout<<"\t \\\\ Money withdrawn successfully.\\\\ \n";}
                                     
-                                else  {cout<<"  Sorry insufficient amount."<<endl;}
+                                else  {cout<<"  Error: Insufficient funds to make withdrawal."<<endl;}
                                     
                            }
                           else{cout<<"!! Negative amount is not computable. !! \n";}
@@ -200,12 +200,12 @@ int main()
 
                         else {
                             if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                            cout<<"  You have entered incorrect pin number. please try again "<<endl; goto aw;
+                            cout<<"  Incorrect PIN entered. Please try again "<<endl; goto aw;
                              }
                     }
                      else {
                          if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                         cout<<"  Such account number did't exist. please try again.\n"; goto bw;
+                         cout<<"  Nonexistent account number entered. Please try again.\n"; goto bw;
                           }
             }
 
@@ -218,7 +218,7 @@ else if (insert=='C'||insert=='c')
                 cin>>accnum;
                 if (accnum>1101||accnum<1001) {
                 if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                cout<<"  Beyond the scope of account number boundary,please RETRY "<<endl; goto bc;}
+                cout<<"  Outside the account number range, please RETRY "<<endl; goto bc;}
                 
                 size=accnum-1001;
                 sameAccount[size]=accnum;
