@@ -210,15 +210,13 @@ int main()
             }
 
     
-
-
-else if (insert=='C'||insert=='c')
+ else if (insert=='C'||insert=='c')
             {   bc:
                 cout<<"Enter the account number: ";
                 cin>>accnum;
                 if (accnum>1101||accnum<1001) {
                 if(3<=count){cout<<" % Too many incorrect attempts %"<<endl ;goto one;} count++;
-                cout<<"  Outside the account number range, please RETRY "<<endl; goto bc;}
+                cout<<"  Beyond the scope of account number boundary,please RETRY "<<endl; goto bc;}
                 
                 size=accnum-1001;
                 sameAccount[size]=accnum;
@@ -315,5 +313,7 @@ else if (insert=='C'||insert=='c')
      goto one;
 
 }
+
+
 
 
