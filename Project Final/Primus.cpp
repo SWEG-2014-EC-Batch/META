@@ -35,15 +35,30 @@ int main() {
                 cout << i << " ";
             }
         }
-        // Calculate and print the average of the prime numbers
+      
+// Calculate and print the average of the prime numbers
         float average = sum / counter2;
         cout << endl << "The average of these prime number is: " << average;
     } else {
         cout<<"The number "<<num<<" is a compoiste number"<<endl;
         // Print all prime divisors of the input number
         cout << "The prime divisors are: ";
-        for (int i = 1; i <= (num / 2); i++) {
-            int count_i = 0;
+       
+        for(int i=1;i<=7;i++){// to print the prime divisors of 2,3,5,7 if any 
+             int count_i = 0;
+            if (num%i==0){
+                for (int j = 1; j <= i; j++) {
+                    if (i % j == 0) {
+                        count_i++;
+                    }
+                 }
+                 if (count_i == 2) {
+                      cout << i << " ";
+                }
+            }
+        }
+        for (int i = 11; i <= sqrt(num); i++) {// prints all the prime divisor greather than 7
+             int count_i = 0;
             if (num % i == 0) {
                 for (int j = 1; j <= i; j++) {
                     if (i % j == 0) {
