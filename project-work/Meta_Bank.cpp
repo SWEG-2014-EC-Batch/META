@@ -5,7 +5,7 @@
 using namespace std;
 
 int main()
-{   const float intRate=0.15;
+{    float intRate;
     const int specialPin=1234;
 
     float arryAmount[100], depositAmount[100], withdrawAmount[100], 
@@ -247,6 +247,8 @@ int main()
                 cin>>pinNum;
                 if (pinNum==specialPin)
                     {
+			cout << "Enter the interest rate: "<<endl;
+			cin>> intRate;
                         for ( size=0; size<100; size++)
                             {
                                 if (arryAccount[size]!=0 && arryAmount[size]>=25)
