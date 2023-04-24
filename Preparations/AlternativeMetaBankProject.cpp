@@ -97,13 +97,14 @@ int main(){
             cout << "Transaction complete. Your account number is " << bankDataPtr[0][currentManagedAccounts] << ", with an initial balance of " << bankDataPtr[2][currentManagedAccounts];
             currentManagedAccounts++;
         }
-        if(toupper(transactionType) == 'B'){
+        else if(currentManagedAccounts > 0 && toupper(transactionType) == 'B'){
             cout << "You have chosen to perform a balance inquiry. \n";
             bStartpoint:
             cout << "\nPlease input account number: \n";
             cin >> putativeCheckedAccount;
             cout << "Please input a PIN: \n";
             cin >> putativePin;
+            pinInputAttempts++;
             for(int i = 0 ; i < accountCount ; i++){
                 if(putativeCheckedAccount == bankDataPtr[0][i] && putativePin == bankDataPtr[1][i] && transactionCountPtr[5][putativeCheckedAccount - 1001] != transactionCountPtr[1][putativeCheckedAccount - 1001]){
                     transactionCountPtr[0][putativeCheckedAccount - 1001] += 1;
@@ -123,7 +124,7 @@ int main(){
                 }
             }
         }
-        if(toupper(transactionType) == 'D'){
+        else if(currentManagedAccounts > 0 && toupper(transactionType) == 'D'){
             double depositCash = 0;
             cout << "You have chosen to perform a deposit. \n";
             dStartpoint:
@@ -158,7 +159,7 @@ int main(){
                 }
             }
         }
-        if(toupper(transactionType) == 'W'){
+        else if(currentManagedAccounts > 0 && toupper(transactionType) == 'W'){
             double withdrawalCash = 0;
             cout << "You have chosen to perform a withdrawal. \n";
             wStartpoint:
@@ -197,7 +198,7 @@ int main(){
                 }
             }
         }
-        if(toupper(transactionType) == 'C'){
+        else if(currentManagedAccounts > 0 && toupper(transactionType) == 'C'){
             cout << "You have decided to close an account. \n";
             cStartpoint:
             cout << "\nPlease input account number: \n";
@@ -224,7 +225,7 @@ int main(){
                 }
             }
         }
-        if(toupper(transactionType) == 'I'){
+        else if(currentManagedAccounts > 0 && toupper(transactionType) == 'I'){
             int putativeManagerialPin = 0;
             cout << "You have chosen to perform an interest calculation. This is a MANAGERIAL operation. \n";
             iStartpoint:
@@ -250,7 +251,7 @@ int main(){
                 else if(pinInputAttempts >= 3) cout << "Too many attempts have been made. Please start over.";
             }    
         }
-        if(toupper(transactionType) == 'P'){
+        else if(currentManagedAccounts > 0 && toupper(transactionType) == 'P'){
             int putativeManagerialPin = 0;
             cout << "You have chosen to perform a printing transaction. This is a MANAGERIAL operation. \n";
             pStartpoint:
@@ -311,7 +312,7 @@ int main(){
                 else if(pinInputAttempts >= 3) cout << "Too many attempts have been made. Please start over.";
             }
         }
-        if(toupper(transactionType) == 'E'){
+        else if(currentManagedAccounts > 0 && toupper(transactionType) == 'E'){
             int putativeManagerialPin = 0;
             eStartpoint:
             cout << "You have chosen to exit the program, closing all accounts. This is an irreversible managerial operation; enter managerial PIN to continue: ";
@@ -337,6 +338,10 @@ int main(){
                 }
                 else if(pinInputAttempts >= 3) cout << "Too many attempts have been made. Please start over.";
             }
+        }
+        else{
+            cout << "Error: Invalid transaction requested.\n";
+            if(currentManagedAccounts == 0) cout << "Please note that the bank has no accounts as of yet. The only valid transaction available is opening accounts. \n";
         }
         cout << "\n\nEnter any key to continue program\n";
         cin >> transactionType;
