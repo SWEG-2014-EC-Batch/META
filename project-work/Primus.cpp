@@ -39,7 +39,7 @@ int main() {
         float average = sum / counter2;
         cout << endl << "The average is: " << average;
     } else {
-        // Print all prime divisors of the input number
+        // Print all prime divisors of the input numbers
         cout << "The prime divisors are: ";
         for (int i = 1; i <= (num / 2); i++) {
             int count_i = 0;
