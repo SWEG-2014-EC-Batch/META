@@ -241,7 +241,7 @@ int main()
 
             }
 
-    else if (insert=='I'||insert=='i')                                      // Manager use only
+    else if (insert=='I'||insert=='i')                                      // compute interest rate and add it to the remaining balance, Manager use only
             {   ai:
                 cout<<"Enter the SPECIAL pin number: ";
                 cin>>pinNum;
@@ -265,7 +265,7 @@ int main()
                          }
             }
 
-    else if (insert=='P'||insert=='p')                                        // Manager use only
+    else if (insert=='P'||insert=='p')                                        //print transactions of all accounts, Manager use only
             {   ap:
                 cout<<"Enter the SPECIAL pin number: ";                    // It requires special pin that only the manager knows
                 cin>>pinNum;
@@ -293,7 +293,7 @@ int main()
 
             }
 
-    else if (insert=='E'||insert=='e')                                        // Manager use only
+    else if (insert=='E'||insert=='e')                                        //Exit, Manager use only
         {   ae:
             cout<<"Enter the SPECIAL pin number: ";
                 cin>>pinNum;
