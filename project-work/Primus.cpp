@@ -38,7 +38,7 @@ int main() {
       // Calculate and print the average of the prime numbers
         float average = sum / counter2;
         cout << endl << "The average is: " << average;
-    } else {
+    } else {cout<<"the number: " <<num<<" is composite"<<endl; 
         // Print all prime divisors of the input number
         cout << "The prime divisors are: ";
         for (int i = 1; i <= (num / 2); i++) {
