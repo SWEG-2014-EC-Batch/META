@@ -1,0 +1,19 @@
+#include <iostream> 
+#include <cmath>
+using namespace std;
+double func(double num1, double num2){
+     return  pow(num1,3) + sqrt(num2);
+}
+
+int main(){
+    double n1, n2;
+ cout << "Enter your numbers"<<endl;
+ cout <<"First number: ";
+ cin>> n1;
+ cout << "Second number: ";
+ cin>> n2;
+double answer = func(n1, n2);
+cout << "The result is: "<<  answer;
+
+
+}
