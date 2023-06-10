@@ -1,11 +1,9 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
-double hypotenuse(double legOne, double legTwo)
-{
-    double hypotenuseLength = sqrt(pow(legOne, 2) + pow(legTwo, 2));
-    return hypotenuseLength;
-}
+
+double hypotenuse(double legOne, double legTwo);
+
 int main()
 {
     double sideOne = 0, sideTwo = 0;
@@ -17,4 +15,10 @@ int main()
     std::cin >> sideTwo;
     std::cout << "The length of the hypotenuse of a right triangle with legs having lengths of "
               << sideOne << " and " << sideTwo << " units is " << hypotenuse(sideOne, sideTwo);
+}
+
+double hypotenuse(double legOne, double legTwo)
+{
+    double hypotenuseLength = sqrt(pow(legOne, 2) + pow(legTwo, 2));
+    return hypotenuseLength;
 }
