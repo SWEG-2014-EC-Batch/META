@@ -1,0 +1,65 @@
+//Grade Calculator
+#include <iostream>
+
+using namespace std;
+int main()
+{int test,quiz,prj,assgn,fex,sum,i=0,j=0,k=0,l=0,m=0;
+
+
+fl:
+
+if(i<3)
+{ 
+cout<<"1.Enter test point( /15): ";
+cin>>test;
+if(test>=0&&test<=15){}
+    else {i++;cout<<"Invalid trial "<<i<<". Retry form 1\n";
+    if(i>=3){cout<<"too many invalid inputs";return 0;}goto fl; }
+    
+}
+
+sl:
+if(j<3){
+cout<<"2.Enter quiz point( /5): ";
+cin>>quiz;
+if(quiz>=0&&quiz<=5){}
+    else {j++;cout<<"Invalid trial "<<j<<". Retry form 2\n";
+    if(j>=3){cout<<"too many invalid inputs";return 0;}goto sl; }}
+
+tl:
+if(k<3){
+cout<<"3.Enter project point( /20): ";
+cin>>prj;
+if(prj>=0&&prj<=20){}else {k++;cout<<"Invalid trial "<<k<<". Retry form 3\n";if(k>=3){cout<<"too many invalid inputs";return 0;}goto tl; }}
+
+ffl:
+if(l<3){
+cout<<"4.Enter assignment point( /10): ";
+cin>>assgn;
+if(assgn>=0&&assgn<=10){}
+    else {l++;cout<<"Invalid trial "<<l<<". Retry form 4\n";
+    if(l>=3){cout<<"too many invalid inputs";return 0;}goto ffl; }}
+
+fffl:
+if(m<3){
+cout<<"5.Enter final exam( /50): ";
+cin>>fex; cout<<endl<<endl;
+if(fex>=0&&fex<=50){}
+    else {m++;cout<<"Invalid trial "<<m<<". Retry form 5\n";
+    if(m>=3){cout<<"too many invalid inputs";return 0;}goto fffl; }} 
+
+sum=fex+assgn+prj+quiz+test;
+
+cout<<"Your got "<<sum<<" and your grade is: ";
+if(sum>=90){cout<<"A+";}
+else if(sum>=80){cout<<"A";}
+else if(sum>=75){cout<<"B+";}
+else if(sum>=60){cout<<"B";}
+else if(sum>=55){cout<<"C+";}
+else if(sum>=30){cout<<"D";}
+else if(sum<30){cout<<"F";}
+
+
+  
+return 0;
+}
