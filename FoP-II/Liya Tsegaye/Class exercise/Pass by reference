@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+void calcQuotient(double n1, double n2, double &answer);
+int main (){
+    double n1, n2, quotient;
+cout << "Enter your numbers: " <<endl;
+cin >> n1 >>n2;
+
+   calcQuotient(n1, n2, quotient);
+
+
+}
+void calcQuotient(double n1, double n2, double &answer){
+    answer =  n1 / n2;
+    cout << answer << endl;
+}
