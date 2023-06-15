@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+double getProduct(int firstNum, double secondNum){
+    cout <<"Enter two numbers an integer and a double: "<<endl;
+    cout << "Integer: "
+    cin>>firstNum;
+    cout <<"Double : "
+    cin>>secondNum;
+    return firstNum*secondNum;
+}
+int main(){
+ int firstNum; 
+ double secondNum;
+  
+ double result = getProduct(firstNum, secondNum);
+  cout << result << endl;
+  
+} 
