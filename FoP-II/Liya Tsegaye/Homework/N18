@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+void calculate(double& price, double discount, bool isPercentage) {
+    assert(discount >= 0);
+    if (isPercentage) {
+        assert(discount <= 100);
+        price = price - (price * (discount / 100));
+    }
+    else {
+        assert(discount <= price);
+        price = price - discount;
+    }
+    assert(price > 0);
+}
+
+int main() {
+    double price = 100;
+    double discount = 20;
+    bool isPercentage = true;
+
+    calculate(price, discount, isPercentage);
+
+    cout << "Price after discount: " << price << endl;
+
+    return 0;
+}
