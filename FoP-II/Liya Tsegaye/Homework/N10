@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+void input(int &feet, int &inches) {
+  cout << "Enter the length in feet: ";
+  cin >> feet;
+    cout << "Enter the length in inches: ";
+  cin >> inches;
+}
+void calculate(int feet, int inches, double &meters, double &centimeters) {
+  const double INCH_TO_CM = 2.54; 
+  const double FOOT_TO_METER = 0.305; 
+    meters = feet * FOOT_TO_METER;
+    centimeters = inches * INCH_TO_CM;
+    meters += centimeters / 100;
+}
+void output(int feet, int inches, double meters, double centimeters) {
+  cout << "The input length is: " << feet << " feet and " << inches << " inches." << endl;
+    cout << "The equivalent length is: " << meters << " meters or " << centimeters << " centimeters." << endl;
+}
+
+int main() {
+int feet, inches;
+double meters, centimeters;
+
+char choice;
+
+do {
+input(feet, inches);
+calculate(feet, inches, meters, centimeters);
+output(feet, inches, meters, centimeters);
+cout << "Do you want to repeat this computation for new input values? y for yes and n for no: ";
+cin >> choice;
+
+} while (choice == 'y' || choice == 'Y');
+cout << "Thank you for using this program" << endl;
+
+return 0;
+}
