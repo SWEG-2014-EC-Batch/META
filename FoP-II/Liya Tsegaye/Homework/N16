@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cassert>
+#include <iomanip>
+using namespace std;
+
+void inputTime(int &hour, int &minute) {
+  cout << "Enter the hour: ";
+  cin >> hour;
+  
+  cout << "Enter the minute: ";
+  cin >> minute;
+}
+
+void convert24To12(int hour, int minute, int &hour12, int &minute12, char &ampm) {
+  assert(hour >= 0 && hour <=23);
+assert(minute >=0 && minute <=59);
+
+minute12 = minute;
+
+if (hour > 12) {
+ hour12 = hour - 12;
+ ampm = 'P';
+} else if (hour == 0) {
+ hour12 = 12;
+ ampm = 'A';
+} else if (hour == 12) {
+ hour12 = hour;
+ ampm = 'P';
+} else {
+ hour12 = hour;
+ ampm = 'A';
+}
+}
+
+void convert12To24(int hour, int minute, char ampm, int &hour24, int &minute24) {
+  assert(hour >=1 && hour <=12);
+assert(minute >=0 && minute <=59);
+
+minute24 = minute;
+
+if (ampm == 'P' || ampm == 'p') {
+ if (hour != 12) {
+   hour24 = hour + 12;
+ } else {
+   hour24 = hour;
+ }
+} else {
+ if (hour != 12) {
+   hour24 = hour;
+ } else {
+   hour24 = 0;
+ }
+}
+}
+
+void outputTime(int hour, int minute, char ampm = '\0') {
+cout << fixed << setfill ('0');
+
+if (ampm == '\0') {
+ cout << "The time is: " << setw (2) << hour << ":" << setw (2) << minute << endl;
+}
+}
