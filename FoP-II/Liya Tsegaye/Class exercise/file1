@@ -1,0 +1,8 @@
+#include "headerfile.h"
+
+using namespace std;
+double getProduct(int firstNum, double secondNum){
+    cout <<"Insert 2 numbers(one normal and one double)"<<endl;
+    cin>>firstNum>>secondNum;
+    return firstNum*secondNum;
+}
