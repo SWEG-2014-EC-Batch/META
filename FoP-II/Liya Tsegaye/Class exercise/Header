@@ -1,0 +1,23 @@
+#include <iostream>
+#include "file1.h"
+#include "headerfile.h"
+#ifndef HEADERFILE
+#define HEADERFILE
+double getProduct(int firstNum, double secondNum){
+    cout <<"Insert 2 numbers(one normal and one double)"<<endl;
+    cin>>firstNum>>secondNum;
+    return firstNum*secondNum;
+}
+#endif 
+
+using namespace std;
+
+int main(){
+ int firstNum; double secondNum;
+  
+ double result = getProduct(firstNum, secondNum);
+  cout << result << endl;
+  
+   printA();
+  
+} 
