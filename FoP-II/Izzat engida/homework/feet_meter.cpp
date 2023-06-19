@@ -38,12 +38,12 @@ void input(int& type,double& value1,double& value2){
 void conversion(int type,double value1,double value2,double& result1,double& result2){
     if(type==1){
         result1=value1*0.3048;
-        result2=((value2/12)*0.3048)*100;
+        result2=value2*2.54;
 
     }
     else if(type==2){
         result1=value1/0.3048;
-        result2=((value2*12)/0.3048)/100;
+        result2=value2/2.54;
     }
 }
 void output(int type,double result1,double result2){
