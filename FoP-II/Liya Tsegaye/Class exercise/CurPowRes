@@ -2,9 +2,8 @@
 #include <cmath>
 
 using namespace std;
- double ressum =0;
-double cursum =0;
- double powsum =0;
+ double Total[3];
+
 
 void calculatePower(double resistance[], double current[], double power[]) {
     for (int i = 0; i < 5; i++) {
@@ -23,11 +22,11 @@ void Display(double resistance[], double current[], double power[]) {
 void calculateTotal(double resistance[], double current[], double power[]){
   for (int i = 0; i < 5; i++) {
        
-        ressum+= resistance[i];
-        cursum+=current[i];
-        powsum+=power[i];
+        Total[0]+= resistance[i];
+        Total[1]+=current[i];
+        Total[2]+=power[i];
     
-    } cout << "Total" <<'\t'<< ressum <<'\t'<< cursum <<'\t'<< powsum<<endl;
+    } cout << "Total" <<'\t'<< Total[0] <<'\t'<< Total[1] <<'\t'<< Total[2]<<endl;
 
 }
 
@@ -44,10 +43,7 @@ int main() {
 
     calculatePower(resistance, current, power);
 
-    cout << "The calculated power values are: ";
-    for (int i = 0; i < 5; i++) {
-        cout << power[i] << " ";
-    } cout << endl;
+   
     Display(resistance, current, power);
     calculateTotal(resistance, current, power);
 
