@@ -1,4 +1,3 @@
-#include<iostream>
 using namespace std;
 void length_wrd(char word[],int size){
 int size1,vowel,cons;
