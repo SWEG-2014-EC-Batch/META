@@ -1,4 +1,3 @@
-#include<iostream>
 using namespace std;
 
 void compare(char word1[],char word2[],int size1,int size2)
