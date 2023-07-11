@@ -1,0 +1,5 @@
+1000234        Liya         Tsegaye  1200.00
+1000345        Elda         Tezera   2300.00
+1000876        Minase       Tesfaye  1200000.75
+1000789        Senait       Gosaye   1232.90
+1000657        Abel         Dereje   8989.00
