@@ -80,6 +80,14 @@ void update_employees(Employee* employees, int size) {
         }
     }
 }
+void output(const Employee* employees, int size) {
+    cout << "ID\tSex\tHourly Wage\tYears with the company\n";
+    for (int i = 0; i < size; i++) {
+        cout << employees[i].id << '\t' << employees[i].sex << '\t'
+             << employees[i].hourly_wage << '\t' << employees[i].years << '\n';
+    }
+}
+
 
 int main() {
     const int NUM_EMPLOYEES = 10;
@@ -93,4 +101,5 @@ int main() {
     
     update_employees(employees, NUM_EMPLOYEES);
     write_to_file(employees, NUM_EMPLOYEES);
+    output(employees,NUM_EMPLOYEES);
 }
