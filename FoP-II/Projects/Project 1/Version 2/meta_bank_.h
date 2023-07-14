@@ -172,3 +172,89 @@ void deposit(user info[])
             cout << "Negative amount not supported. Please retry: " << endl;
             cin >> new_deposit;
         }
+ info[acc - 1000].deposit += new_deposit;
+        info[acc - 1000].amount += new_deposit;
+        cout << "\nSuccessfully deposited: " << new_deposit << " BIRR";
+    }
+}
+
+void goodbye(user info[])
+{
+    if (managerAuthentication() == 1)
+    {
+        printFile(info);
+        cout << setfill('*') << setw(140) << "\n";
+        cout << setfill(' ') << setw(70) << right << "Thank You For Using META Bank! Find data in Meta Bank Data.txt\n";
+        cout << setfill('*') << setw(140) << "\n";
+    }
+}
+
+void withdraw(user info[])
+{
+    int acc = 0, trys = 0, pin = 0;
+    float withdrawal;
+    if (accountAndPinAndClosureAuthenticator(info, acc, pin) == 1)
+    {
+        int i = acc - 1000;
+        {
+            cout << "Your current balance stands at: " << info[i].amount;
+        beg:
+            cout << "\nHow much do you wish to withdraw: ";
+            cin >> withdrawal;
+            if (withdrawal >= 0)
+            {
+
+                if (info[i].amount >= withdrawal)
+                {
+                    info[i].withdraw += withdrawal;
+                    info[i].amount -= withdrawal;
+                    cout << "\t \\\\ Money withdrawn successfully.\\\\ \n";
+                    cout << "Remaining balance: " << info[i].amount << endl;
+                    cout << "Withdrawn amount: " << withdrawal << endl;
+                }
+
+                else
+                {
+                    cout << "  Error: Insufficient funds to make withdrawal." << endl;
+                    if (trys != 3)
+                    {
+                        trys++;
+                        goto beg;
+                    }
+                }
+            }
+            else
+            {
+                cout << "!! Negative amount is not computable. !! \n";
+                if (trys != 3)
+                {
+                    trys++;
+                    goto beg;
+                }
+            }
+        }
+    }
+}
+
+void closeaccount(user info[])
+{
+    int acc = 0, pin = 0;
+    char input;
+    if (accountandPINAuthenticator(info, acc, pin, 0) == 1)
+    {
+    ab:
+        if (info[acc - 1000].isAccountClosed == false)
+        {
+            cout << "Would you like to close your account?[Y/N] ";
+            cin >> input;
+            if (input == 'Y' || input == 'y')
+            {
+                info[acc - 1000].isAccountClosed = true;
+                cout << "Account " << info[acc - 1000].account_number << " has been closed";
+            }
+            else if (input == 'N' || input == 'n')
+            {
+                cout << "Your account will remain open";
+            }
+            else
+            {
