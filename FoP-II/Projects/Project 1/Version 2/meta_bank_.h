@@ -258,3 +258,93 @@ void closeaccount(user info[])
             }
             else
             {
+                cout << "Invalid input. Try again";
+                goto ab;
+            }
+        }
+        else
+        {
+            cout << "Your account is closed.\n Would you like to re-open it? [Y/N]";
+            cin >> input;
+            if (input == 'Y' || input == 'y')
+            {
+                info[acc - 1000].isAccountClosed = false;
+                cout << "Account " << info[acc - 1000].account_number << " has been re-opened.";
+            }
+            else if (input == 'N' || input == 'n')
+            {
+                cout << "Your account will remain closed.";
+            }
+            else
+            {
+                cout << "Invalid input. Try again";
+                goto ab;
+            }
+        }
+    }
+}
+
+void interest(user info[])
+{
+    float intRate = 0;
+
+    if (managerAuthentication() == 1)
+    {
+        do
+        {
+            cout << "\nEnter the interest rate (as 1 + fractional rate, e.g. 1.05 if it is 5 percent): " << endl;
+            cin >> intRate;
+            if (intRate <= 0)
+            {
+                cout << "\nInterest rate cannot be negative or zero.\n";
+            }
+        } while (intRate <= 0);
+
+        for (int num = 0; num <= 100; num++)
+        {
+            if (info[num].account_number != 0 && info[num].amount >= 25)
+            {
+                info[num].amount = info[num].amount * intRate;
+            }
+        }
+        cout << "\t \\\\ Compound interest has been added to each account. \\\\ \n";
+    }
+}
+
+void print(user info[])
+{
+    float intRate = 0;
+    if (managerAuthentication() == 1)
+    {
+        cout << setfill('_') << setw(140) << "\n";
+        cout << setfill(' ') << setw(30) << "Account Number" << setw(30) << "Balance" << setw(30) << "Withdraw" << setw(30) << "Deposit"
+             << "\n";
+        cout << setfill('-') << setw(140) << "\n";
+        for (int num = 0; num <= 100; num++)
+        {
+            if (info[num].account_number != 0)
+            {
+                cout << setfill(' ') << setw(30) << info[num].account_number << setw(30) << info[num].amount << setw(30) << info[num].withdraw << setw(30) << info[num].deposit << " \n";
+            }
+        }
+        printFile(info);
+        cout << "\nPrinting operation successful. You can also find this data in Meta Bank Data.txt";
+    }
+}
+
+void printFile(user info[])
+{
+    ofstream bankdata;
+    bankdata.open("Meta Bank Data.txt", ios::out | ios::trunc);
+    bankdata << setfill('_') << setw(140) << "\n";
+    bankdata << setfill(' ') << setw(30) << "Account Numbers" << setw(30) << "Balance" << setw(30) << "Withdraw" << setw(30) << "Deposit"
+             << "\n";
+    bankdata << setfill('-') << setw(140) << "\n";
+    for (int num = 0; num <= 100; num++)
+    {
+        if (info[num].account_number != 0)
+        {
+            bankdata << setfill(' ') << setw(30) << info[num].account_number << setw(30) << info[num].amount << setw(30) << info[num].withdraw << setw(30) << info[num].deposit << " \n";
+        }
+    }
+}
