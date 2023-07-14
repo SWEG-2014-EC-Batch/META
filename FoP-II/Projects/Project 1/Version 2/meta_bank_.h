@@ -85,3 +85,90 @@ void menu()
         }
         else
         {
+        cout << "Invalid command";
+        }
+
+        cout << "\n\n\nEnter any key to continue: ";
+        cin >> insert;
+    }
+}
+
+void openaccount(user info[], int size)
+{
+    int acc;
+    cout << "Which account number do you want from the range (1001-1101)? The following are available: \n\n"
+         << endl;
+
+    for (int row = 0; row < 11; row++) // code to print available account numbers (necessary since it's the user and not the program that picks them)
+    {
+        for (int col = 0; col < 10; col++)
+        {
+            if (info[10 * row + col + 1].account_number != 0 && ((10 * row) + col) <= 100)
+            {
+                cout << "     ";
+            }
+            else if (info[10 * row + col + 1].account_number == 0 && ((10 * row) + col) <= 100)
+            {
+                cout << 1001 + ((10 * row) + col) << " ";
+            }
+            if (col == 9)
+                cout << endl;
+        }
+    }
+
+    cout << "\n\nInput choice: ";
+    cin >> acc;
+
+    while (acc < 1001 || acc > 1101)
+    {
+        cout << "Out of range. Please try again correctly." << endl;
+        cin >> acc;
+    }
+    size = acc - 1000;
+    if (info[size].account_number == 0)
+    {
+        cout << "Enter initial deposit: ";
+        cin >> info[size].amount;
+        while (info[size].amount < 25)
+        {
+            cout << "Initial deposit should be 25 and above. Please try again." << endl;
+            cin >> info[size].amount;
+        }
+        cout << "Enter your new PIN: ";
+        cin >> info[size].pinnumber;
+        while (info[size].pinnumber < 1000 || info[size].pinnumber > 9999)
+        {
+            cout << "Invalid PIN. Please enter a four-digit number." << endl;
+            cin >> info[size].pinnumber;
+        }
+        info[size].account_number = acc;
+        cout << "Account number -" << info[size].account_number << "- has been opened." << endl;
+    }
+    else
+    {
+        cout << "Account in use. Please retry and select a new account." << endl;
+    }
+}
+
+void balanceinquiry(user info[])
+{
+    int acc = 0, pin = 0;
+    if (accountandPINAuthenticator(info, acc, pin) == 1)
+    {
+        cout << "Your balance is: " << info[acc - 1000].amount << endl;
+    }
+}
+
+void deposit(user info[])
+{
+    int acc = 0, pin = 0;
+    float new_deposit = 0;
+    if (accountAndPinAndClosureAuthenticator(info, acc, pin) == 1)
+    {
+        cout << "Enter the amount you want to deposit: ";
+        cin >> new_deposit;
+        while (new_deposit < 0)
+        {
+            cout << "Negative amount not supported. Please retry: " << endl;
+            cin >> new_deposit;
+        }
