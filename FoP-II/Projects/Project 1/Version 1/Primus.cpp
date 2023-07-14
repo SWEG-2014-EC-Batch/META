@@ -21,3 +21,25 @@ ab:
   else if(num==1){
     cout<<num <<" is neither compoiste nor prime"<<endl;
   }
+  else
+  {
+    cout << endl << num << " is a composite number \n Its prime divisors are: ";
+    composite(num);
+  }
+ob:
+  cout << endl
+       << endl
+       << " Would you like to continue? Press Y/N: ";
+  cin >> check;
+
+  check = toupper(check);
+  if (check == 'Y')
+  {
+    goto ab;
+  }
+  else if (check == 'N')
+  {
+    cout<<"\n\n!!! Thank you for using this program !!!";
+    return 0;
+  }
+}
