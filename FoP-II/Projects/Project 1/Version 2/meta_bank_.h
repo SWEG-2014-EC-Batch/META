@@ -348,3 +348,87 @@ void printFile(user info[])
         }
     }
 }
+int accountNumberAuthenticator(int &acc)
+{
+    cout << "Enter your account number: ";
+    cin >> acc;
+    while (acc < 1001 || acc > 1101)
+    {
+        cout << "Out of range.\n Please try again." << endl;
+        cin >> acc;
+    }
+    if (info[acc - 1000].account_number != 0)
+    {
+        return 1;
+    }
+    else
+    {
+        cout << "Account does not exist. Try again." << endl;
+        return 0;
+    }
+}
+
+int accountandPINAuthenticator(user info[], int &acc, int &pin, int tries)
+{
+    if (accountNumberAuthenticator(acc) == 1)
+    {
+        cout << "Enter your PIN: " << endl;
+        cin >> pin;
+        if (info[acc - 1000].pinnumber == pin)
+        {
+            return 1;
+        }
+        else
+        {
+            while (info[acc - 1000].pinnumber != pin)
+            {
+                cout << "Incorrect PIN entered. Try again" << endl;
+                cin >> pin;
+                tries++;
+            }
+            if (tries > 3)
+            {
+                cout << "Too many attempts; please start over" << endl;
+                return 0;
+            }
+        }
+    }
+}
+
+int accountAndPinAndClosureAuthenticator(user info[], int &acc, int &pin, int tries)
+{
+    if (accountandPINAuthenticator(info, acc, pin, tries) == 1)
+    {
+        if (info[acc - 1000].isAccountClosed == true)
+        {
+            cout << "Your account is closed and does not accept withdrawals and deposits.\nYou need to re-open your account.";
+            return 0;
+        }
+        else
+            return 1;
+    }
+}
+
+int managerAuthentication()
+{
+    int pin, tries = 0;
+    cout << "Enter manager's PIN: ";
+    cin >> pin;
+    if (pin == specialkey)
+    {
+        return 1;
+    }
+    else
+    {
+        while (tries <= 0)
+        {
+            cout << "Incorrect PIN entered. Please try again." << endl;
+            tries++;
+        }
+        if (tries > 3)
+        {
+            cout << "Too many tries; please start over." << endl;
+            return 0;
+        }
+    }
+}
