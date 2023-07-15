@@ -385,12 +385,13 @@ int accountandPINAuthenticator(user info[], int &acc, int &pin, int tries)
                 cout << "Incorrect PIN entered. Try again" << endl;
                 cin >> pin;
                 tries++;
+                if (tries > 3)
+                {
+                    cout << "Too many attempts; please start over" << endl;
+                    return 0;
+                }
             }
-            if (tries > 3)
-            {
-                cout << "Too many attempts; please start over" << endl;
-                return 0;
-            }
+            return 1;
         }
     }
 }
