@@ -227,3 +227,221 @@ void withdraw(float accounts[][6])
         }
     }
 }
+
+void closeaccount(float accounts[][6])
+{
+    int acc = 0, pin = 0;
+    char input;
+    if (accountandPINAuthenticator(accounts, acc, pin, 0) == 1)
+    {
+    ab:
+        if (accounts[acc - 1000][5] == 0)
+        {
+            cout << "Would you like to close your account?[Y/N] ";
+            cin >> input;
+            if (input == 'Y' || input == 'y')
+            {
+                accounts[acc - 1000][5] = 1;
+                cout << "Account " << (int)accounts[acc - 1000][0] << " has been closed";
+            }
+            else if (input == 'N' || input == 'n')
+            {
+                cout << "Your account will remain open";
+            }
+            else
+            {
+                cout << "Invalid input. Try again";
+                goto ab;
+            }
+        }
+        else
+        {
+            cout << "Your account is closed.\n Would you like to re-open it? [Y/N]";
+            cin >> input;
+            if (input == 'Y' || input == 'y')
+            {
+                accounts[acc - 1000][5] = 0;
+                cout << "Account " << (int)accounts[acc - 1000][0] << " has been re-opened.";
+            }
+            else if (input == 'N' || input == 'n')
+            {
+                cout << "Your account will remain closed.";
+            }
+            else
+            {
+                cout << "Invalid input. Try again";
+                goto ab;
+            }
+        }
+    }
+}
+
+void interest(float accounts[][6])
+{
+    float intRate = 0;
+
+    if (managerAuthentication() == 1)
+    {
+        do
+        {
+            cout << "\nEnter the interest rate (as 1 + fractional rate, e.g. 1.05 if it is 5 percent): " << endl;
+            cin >> intRate;
+            if (intRate <= 0)
+            {
+                cout << "\nInterest rate cannot be negative or zero.\n";
+            }
+        } while (intRate <= 0);
+
+        for (int num = 0; num <= 100; num++)
+        {
+            if (accounts[num][0] != 0 && accounts[num][2] >= 25)
+            {
+                accounts[num][2] = accounts[num][2] * intRate;
+            }
+        }
+        cout << "\t \\\\ Compound interest has been added to each account. \\\\ \n";
+    }
+}
+
+int print(float accounts[][6])
+{
+    char choice = 'P';
+    cout << "\nYou have chosen to perform a printing operation.";
+    for (int tries = 0; tries < 4; tries++)
+    {
+        cout << "\nAre you a manager (input M) or a customer (input C): ";
+        cin >> choice;
+        if (choice == 'M' || choice == 'm')
+        {
+            managerPrint(accounts);
+            return 1;
+        }
+        if (choice == 'C' || choice == 'c')
+        {
+            customerPrint(accounts);
+            return 1;
+        }
+        else
+            cout << "\nError: Invalid input. Please try again.";
+    }
+    cout << "\nError: Too many invalid inputs. Please start over.\n";
+}
+
+void managerPrint(float accounts[][6])
+{
+    if (managerAuthentication() == 1)
+    {
+        cout << setfill('_') << setw(140) << "\n";
+        cout << setfill(' ') << setw(30) << "Account Number" << setw(30) << "Balance" << setw(30) << "Withdraw" << setw(30) << "Deposit"
+             << "\n";
+        cout << setfill('-') << setw(140) << "\n";
+        for (int num = 0; num <= 100; num++)
+        {
+            if (accounts[num][0] != 0)
+            {
+                cout << setfill(' ') << setw(30) << (int)accounts[num][0] << setw(30) << accounts[num][2] << setw(30) << accounts[num][4] << setw(30) << accounts[num][3] << " \n";
+            }
+        }
+        cout << "\nPrinting operation successful.";
+    }
+}
+
+void customerPrint(float accounts[][6])
+{
+    int acc = 0, pin = 0;
+    if (accountAndPinAndClosureAuthenticator(accounts, acc, pin) == 1)
+    {
+        cout << setfill('_') << setw(140) << "\n";
+        cout << setfill(' ') << setw(30) << "Account Number" << setw(30) << "Balance" << setw(30) << "Withdraw" << setw(30) << "Deposit"
+             << "\n";
+        cout << setfill('-') << setw(140) << "\n";
+        cout << setfill(' ') << setw(30) << (int)accounts[acc - 1000][0] << setw(30) << accounts[acc - 1000][2] << setw(30) << accounts[acc - 1000][4] << setw(30) << accounts[acc - 1000][3] << " \n";
+    }
+    cout << "\nPrinting operation successful.";
+}
+
+int accountNumberAuthenticator(int &acc)
+{
+    cout << "Enter your account number: ";
+    cin >> acc;
+    while (acc < 1001 || acc > 1101)
+    {
+        cout << "Out of range.\n Please try again." << endl;
+        cin >> acc;
+    }
+    if (accounts[acc - 1000][0] != 0)
+    {
+        return 1;
+    }
+    else
+    {
+        cout << "Account does not exist. Try again." << endl;
+        return 0;
+    }
+}
+
+int accountandPINAuthenticator(float accounts[][6], int &acc, int &pin, int tries)
+{
+    if (accountNumberAuthenticator(acc) == 1)
+    {
+        cout << "Enter your PIN: " << endl;
+        cin >> pin;
+        if (accounts[acc - 1000][1] == pin)
+        {
+            return 1;
+        }
+        else
+        {
+            while (accounts[acc - 1000][1] != pin)
+            {
+                cout << "Incorrect PIN entered. Try again" << endl;
+                cin >> pin;
+                tries++;
+                if (tries > 3)
+                {
+                    cout << "Too many attempts; please start over" << endl;
+                    return 0;
+                }
+            }
+            return 1;
+        }
+    }
+}
+
+int accountAndPinAndClosureAuthenticator(float accounts[][6], int &acc, int &pin, int tries)
+{
+    if (accountandPINAuthenticator(accounts, acc, pin, tries) == 1)
+    {
+        if (accounts[acc - 1000][5] == 1)
+        {
+            cout << "Your account is closed and does not accept withdrawals and deposits.\nYou need to re-open your account.";
+            return 0;
+        }
+        else
+            return 1;
+    }
+}
+
+int managerAuthentication()
+{
+    int pin, tries = 0;
+    cout << "Enter manager's PIN: ";
+    cin >> pin;
+    if (pin == specialkey)
+    {
+        return 1;
+    }
+    else
+    {
+        while (tries <= 0)
+        {
+            cout << "Incorrect PIN entered. Please try again." << endl;
+            tries++;
+        }
+        if (tries > 3)
+        {
+            cout << "Too many tries; please start over." << endl;
+            return 0;
+        }
+    }
+}
