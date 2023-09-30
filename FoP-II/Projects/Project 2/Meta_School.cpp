@@ -595,3 +595,202 @@ for (int i=0; i<dat.size(); i++){
                     }
                    else if(inputfee < get<1>(courses[j])){
                     cout<<"You've not commited to the full fee. You need to pay an additional:"<<(get<1>(courses[j])-inputfee);
+                    cout<<"\nComplete payment for remaining amount: ";
+                    cin>>inputfee2;
+                    if(inputfee2 < (get<1>(courses[j])-inputfee)){
+                        cout<<"Could not complete registration due to inadequate payment. Any payment made has been refunded";
+                        return;
+                    }  else {
+                        cout<<"Payment for the third semester complete. Thank You!";
+                        get<2>(payrec[i])= get<2>(payrec[i]) + get<1>(courses[j]);
+                        get<1>(payrec[i])= 3;
+                         semester=get<1>(payrec[i]);
+                        holder=get<1>(courses[j]);
+                         check=true;
+
+                    }
+              
+                     }  receipt(temp,te, year, semester,holder);}
+            
+        }
+
+        // Case 3 of student payment (If payment for the year was complete)
+   if (get<1>(payrec[j])==3){
+                cout<<"Payment for all 3 semesters has already been completed. Thank you.";
+            } 
+
+    }
+}
+
+}}}
+
+//Export payment records data
+fstream recsout("paymentrecords.txt", ios::out);
+     if(recsout.is_open()){
+         for(int i = 0; i < payrec.size(); i++){
+             recsout << get<0>(payrec[i]) << " " << get<1>(payrec[i]) << " " << get<2>(payrec[i]) << "\n";
+         }
+         recsout.close();
+     }
+
+
+}}
+void Student::checkDue() {
+    string id, pin;
+
+    // Ask for the student's ID and pin
+    cout << "Enter the ID of the student: ";
+    cin >> id;
+    cout << "Enter the pin of the student: ";
+    cin >> pin;
+
+    // Find the student with the given ID and pin
+    for(int i = 0; i < dat.size(); i++){
+        if(get<0>(dat[i]) == id && get<6>(dat[i]) == pin){
+            // Student found, check their payment status
+            if(get<1>(payrec[i]) < 3){
+                // Payment is due
+                cout << "Payment is due for term " << get<1>(payrec[i]) + 1 << ". The due fee is: " << get<1>(courses[get<4>(dat[i]) - 1]) << endl;
+            } else {
+                // No payment due
+                cout << "No payment is due." << endl;
+            }
+            return;
+        }
+    }
+
+    // No student found with the given ID and pin
+    cout << "No student found with the given ID and pin." << endl;
+}
+
+void Student :: due(){
+    int input;
+
+    // Ipmport data from the the student and payment record files
+    dat.clear(); payrec.clear();
+fstream file("student.txt", ios::in);
+    if(file.is_open()){
+        while(file >> temp >> te >> tem >> ge >> year >> semester>>pin){
+            dat.push_back(make_tuple(temp, te, tem, ge, year, semester,pin));
+        }
+    }
+    file.close();
+    payrec.clear();
+ fstream recsin("paymentrecords.txt",ios::in);
+  if (recsin.is_open()){
+            while (recsin>> temp>>semester>>holder){
+                payrec.push_back(make_tuple(temp,semester,holder));
+            }
+         } else {cout<<"Failure encountered during phased 2";}
+         recsin.close();
+    
+
+    
+    cout<<"Insert \"1\" to check payment due for all the students or \"2\" to check payment due for a single student: ";
+     cin>>input;
+
+     //Lists all of the students with remaining payments for terms
+     if(input==1){
+        sort(dat.begin(), dat.end());
+        sort(payrec.begin(),payrec.end());
+        int t = dat.size();
+        cout<<endl<<endl<<endl;
+        cout << "ID           name     age      gender      year    Semester Paid Until Term    Payment due for" << endl;
+        for(int i = 0; i < t; i++){
+            cout << get<0>(dat[i]) << "  " << get<1>(dat[i]) << "      " << get<2>(dat[i]) << "   " 
+                 << get<3>(dat[i]) << "   " << get<4>(dat[i]) << "   " << get<1>(payrec[i])<<"  ";
+                 if(get<1>(payrec[i])==1){
+                   cout<<"2nd and 3rd Terms"<<endl;
+                 }
+                else if(get<1>(payrec[i])==2){
+                     cout<<"3rd Term"<<endl;
+                }
+                 else if(get<1>(payrec[i])==3){
+                    cout<<"No due fee"<<endl;
+                 }
+        }
+       
+
+     }
+
+     //Fetches info about a specific stuent with remaining payments for 
+     else if (input==2){
+         string sh;
+        cout << "Enter the ID of the student:  ";
+        cin >> sh;
+        int t = dat.size();
+        bool idFound = false;
+        cout<<endl<<endl<<endl;
+        cout << "ID           name     age      gender      year    Semester Paid Until Term    Payment due for" << endl;
+        for(int i = 0; i < t; i++){
+            if(get<0>(dat[i]) == sh){
+                idFound = true;
+                 cout << get<0>(dat[i]) << "  " << get<1>(dat[i]) << "      " << get<2>(dat[i]) << "   " 
+                 << get<3>(dat[i]) << "   " << get<4>(dat[i]) << "   " << get<1>(payrec[i])<<"  ";
+                 if(get<1>(payrec[i])==1){
+                   cout<<"2nd and 3rd Terms"<<endl;
+                 }
+                else if(get<1>(payrec[i])==2){
+                     cout<<"3rd Term"<<endl;
+                }
+                 else if(get<1>(payrec[i])==3){
+                    cout<<"No due fee"<<endl;
+                 }
+                 break;
+            }
+        }
+        if(!idFound){
+            cout << "No student found with the given ID." << endl;
+        }
+    } else {
+        cout << "Invalid choice. Please enter either 1 or 2." << endl;
+    }
+     
+
+}
+
+void Student :: receipt(string id,string name, int grade, int term,int paidAmount ) {
+  // Recievers ID, name, grade , paid for term of the student and amount paid, and prints a receipt 
+   cout<<"\n";
+   // Prints receipt on the screen
+            cout<<"Name of individual: "<<name<<" "<<"\n";
+            cout<<"Up to Term: "<<term<<endl;
+                cout<<"\tPaid amount: "<<paidAmount<<" BR.\n";
+                cout<<"\tWith a recipt string of: "<<id<<"\n";
+   // Exports receipt to a file
+            fstream rcOut("receipt.txt",ios::out | ios::app );
+            rcOut<<"+---------------------------------------------------------------------\n";
+            rcOut<<"|\n";
+            rcOut<<"Name of individual: "<<name<<" "<<"\n";
+            rcOut<<"Up to Term: "<<term<<endl;
+            rcOut<<"\tPaid amount: "<<paidAmount<<" BR.\n";
+            rcOut<<"\tWith a recipt string of: "<<id<<"\n";
+            rcOut<<"+---------------------------------------------------------------------\n\n";
+
+            rcOut.close();
+
+}
+void Student::ExpenseM(){
+    
+    string filename = "expenses.txt";
+    ifstream inputFile(filename);
+    string line;
+
+    
+
+    int choice;
+
+    while (true) {
+        cout << "Expense Menu" << endl;
+            cout << "\t1. To register Expense" << endl;
+            cout << "\t2. To display Expenses" << endl;
+            cout << "\t3. To modify Expense" << endl;
+            cout << "\t4. To delete Expense" << endl;
+            cout << "\t5. Exit" << endl;
+        
+        cout << "\nYour choice: ";
+        cin >> choice;
+        ofstream outputFile(filename, ios::app);
+        switch (choice) {
+            case 1: 
+                registerExpense(expenses, outputFile);
