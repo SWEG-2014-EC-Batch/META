@@ -197,3 +197,202 @@ void Student::input() {
                 if(idExists){
                     cout << "This ID is already in use. Please enter a different ID." << endl;
                 } else {
+    break;
+                }
+            }
+
+            cout << "Enter the student name: ";
+            cin >> te;
+
+            cout << "Enter the student age: ";
+            cin >> tem;
+
+            cout << "Enter the student gender: ";
+            cin >> ge;
+
+            cout<<"Enter the student year: ";
+            cin>>year;
+
+            cout<<"Enter the student semester: ";
+            cin>>semester;
+
+            cout<<"Enter the student password: ";
+            cin>>pin;
+
+            for (int k=0;k<3;k++){
+                if(semester == get<0>(courses[k])){
+                    cout<<"Fee due for term: "<<semester<<" is "<<get<1>(courses[k])<<endl;
+                    cout<<"Complete payment: ";
+                    cin>>inputfee;
+
+                    if(inputfee < get<1>(courses[k])){
+                        cout<<"You've not committed to the full fee. You need to pay an additional:"<<(get<1>(courses[k])-inputfee);
+                        cout<<"\nComplete payment for remaining amount: ";
+                        cin>>inputfee2;
+
+                        if(inputfee2 < (get<1>(courses[k])-inputfee)){
+                            cout<<"Could not complete registration due to inadequate payment. Any payment made has been refunded";
+                            break;
+                        }
+                        else {
+                            goto ab;
+                        }
+                    } 
+                    else {
+                        ab:
+                        cout<<"Registration of "<<te<<" complete";
+                        holder=get<1>(courses[k]);
+                        payrec.push_back(make_tuple(temp,semester,holder));
+
+                        if (recsout.is_open()){
+                            recsout<<temp<<" "<<semester<<" "<<holder<<endl;
+                        } else {
+                            cout<<"Failed to export";
+                        }
+
+                        file2<<temp<<" "<<te<<" "<<tem<<" "<<ge<<" "<<year<<" "<<semester<<"  "<<pin<<endl; 
+                        dat.push_back(make_tuple(temp, te, tem, ge, year, semester,pin));
+                    }
+                }
+            }
+       receipt(temp,te, year, semester,holder); }
+    }
+
+    recsout.close();
+    file2.close();
+}
+    
+void Student::print() {
+
+    dat.clear();  // Clear the vector before reading new data
+    fstream file("student.txt", ios::in);
+    if(file.is_open()){
+        while(file >> temp >> te >> tem >> ge >> year >> semester>>pin){
+            dat.push_back(make_tuple(temp, te, tem, ge, year, semester,pin));
+        }
+    }
+    file.close();
+
+    cout<<endl<<endl<<endl;
+    cout << "Welcome again" << endl;
+    cout << "Press 1 to print all the results " << endl;
+    cout << "Press 2 to print a single result " << endl;
+    cout <<"Press 3 to print profit results " << endl;
+    cout << "Choice: ";
+    cin >> choice2;
+
+    if(choice2 == 1){
+        sort(dat.begin(), dat.end());
+        int t = dat.size();
+        cout<<endl<<endl<<endl;
+        cout << "ID           name     age      gender      year    semester" << endl;
+        for(int i = 0; i < t; i++){
+            cout << get<0>(dat[i]) << "  " << get<1>(dat[i]) << "      " << get<2>(dat[i]) << "   " 
+                 << get<3>(dat[i]) << "   " << get<4>(dat[i]) << "   " << get<5>(dat[i]) << endl;
+        }
+    } else if(choice2 == 2){
+        string sh;
+        cout << "Enter the ID of the student:  ";
+        cin >> sh;
+        int t = dat.size();
+        bool idFound = false;
+        cout<<endl<<endl<<endl;
+        cout << "ID           name     age      gender      year    semester" << endl;
+        for(int i = 0; i < t; i++){
+            if(get<0>(dat[i]) == sh){
+                idFound = true;
+                cout<<get<0>(dat[i])<<"  "<<get<1>(dat[i])<<"      "<<get<2>(dat[i])<<"   "<<get<3>(dat[i])
+                    <<"   "<<get<4>(dat[i])<<"   "<<get<5>(dat[i])<<endl; 
+            }
+        }
+        if(!idFound){
+            cout << "No student found with the given ID." << endl;
+        }
+    }else if(choice2 ==3){
+          int totalRevenue = 0;
+    int profit = 0;
+    int totalExpenses = 0;
+    vector<tuple<string, string, int>> payrec; 
+      expenses.clear();
+    // Read expenses from file
+    ifstream expensesFile("expenses.txt");
+     Expense expense;
+     while (expensesFile >> expense.item >> expense.cost) {
+            expenses.push_back(expense);
+            totalExpenses += expense.cost;
+        } 
+        expensesFile.close();
+
+        payrec.clear(); // clear before reading
+    ifstream paymentRecordsFile("paymentrecords.txt");
+        string field1, field2;
+        int revenue;
+        while (paymentRecordsFile >> field1 >> field2 >> revenue) {
+            payrec.push_back(make_tuple(field1, field2, revenue));
+        }
+        paymentRecordsFile.close();
+   
+    for (int i = 0; i < payrec.size(); i++) {
+        totalRevenue += get<2>(payrec[i]);
+    }
+    profit = totalRevenue - totalExpenses;
+    cout << "Total Revenue: $" << totalRevenue << "\t\t Total Expenses: $" << totalExpenses << endl;
+
+    if (profit >= 0) {
+        cout << "Profit = $" << profit;
+    } else {
+        cout << "The school is at a $" << profit << " loss." << endl;
+    }
+}
+}
+void Student::sp(){
+    dat.clear();  // Clear the vector before reading new data
+    fstream file("student.txt", ios::in);
+    if(file.is_open()){
+        while(file >> temp >> te >> tem >> ge >> year >> semester>>pin){
+            dat.push_back(make_tuple(temp, te, tem, ge, year, semester,pin));
+        }
+    }
+    file.close();
+
+    string sh;
+    cout << "Enter the ID of the student:  ";
+    cin >> sh;
+    cout << "Enter the pin of the student: ";
+    cin >> pin;
+
+    bool idFound = false;
+    cout<<endl<<endl<<endl;
+    cout << "ID           name     age      gender      year    semester" << endl;
+    
+    for(int i = 0; i < dat.size(); i++){
+        if(get<0>(dat[i]) == sh && get<6>(dat[i]) == pin){ // Check if the pin matches
+            idFound = true;
+            cout<<get<0>(dat[i])<<"  "<<get<1>(dat[i])<<"      "<<get<2>(dat[i])<<"   "<<get<3>(dat[i])
+                <<"   "<<get<4>(dat[i])<<"   "<<get<5>(dat[i])<<endl; 
+        }
+    }
+    
+    if(!idFound){
+        cout << "No student found with the given ID and pin." << endl;
+    }
+}
+
+void Student::del() {
+    cout<<endl<<endl<<endl;
+    cout << "Welcome again" << endl;
+    cout << "Press 1 to delete all the values" << endl;
+    cout << "Press 2 to delete a specific value" << endl;
+    cout << "Choice: ";
+    cin >> choice2;
+    cout<<endl<<endl<<endl;
+
+    if(choice2 == 1){
+        fstream file("student.txt", ios::out);
+        if(file.is_open()){
+            file.clear(); // Clear the contents of the file
+        }
+        file.close();
+        dat.clear();
+    } else if(choice2 == 2){
+        string sh;
