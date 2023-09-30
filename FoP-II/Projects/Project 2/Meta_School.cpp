@@ -396,3 +396,202 @@ void Student::del() {
         dat.clear();
     } else if(choice2 == 2){
         string sh;
+ cout << "Enter the ID of the data you want to remove: ";
+        cin >> sh;
+
+        vector<tuple<string,string,int,string,int,int,string>> newDat;
+
+        for(int i = 0; i < dat.size(); i++){
+            if(get<0>(dat[i]) != sh){
+                newDat.push_back(dat[i]);
+            }
+        }
+
+        dat = newDat;
+
+        fstream file("student.txt", ios::out);
+        if(file.is_open()){
+            for(int i = 0; i < dat.size(); i++){
+                file << get<0>(dat[i]) << " " << get<1>(dat[i]) << " " << get<2>(dat[i]) << " "
+                     << get<3>(dat[i]) << " " << get<4>(dat[i]) << " " << get<5>(dat[i]) << endl;
+            }
+        }
+        file.close();
+    } else {
+        cout << "Invalid choice. Please enter either 1 or 2." << endl;
+    }
+}
+void Student::mod() {
+    cout << "Enter the ID of the student whose info you want to modify: ";
+    string id;
+    cin >> id;
+
+    // Find the student with the given ID
+    for(int i = 0; i < dat.size(); i++){
+        if(get<0>(dat[i]) == id){
+            // Student found, ask for new info
+            cout << "Enter the new student name: ";
+            cin >> te;
+            cout << "Enter the new student age: ";
+            cin >> tem;
+            cout << "Enter the new student gender: ";
+            cin >> ge;
+            cout << "Enter the new student year: ";
+            cin >> year;
+            cout << "Enter the new student semester: ";
+            cin >> semester;
+
+            // Update the student info in dat
+            dat[i] = make_tuple(id, te, tem, ge, year, semester,pin);
+
+            // Update the student info in the file
+            fstream file("student.txt", ios::out);
+            if(file.is_open()){
+                for(int j = 0; j < dat.size(); j++){
+                    file << get<0>(dat[j]) << " " << get<1>(dat[j]) << " " << get<2>(dat[j]) << " "
+                         << get<3>(dat[j]) << " " << get<4>(dat[j]) << " " << get<5>(dat[j]) << endl;
+                }
+            }
+            file.close();
+
+            cout << "Student info updated successfully." << endl;
+            return;
+        }
+    }
+
+    cout << "No student found with the given ID." << endl;
+}
+void Student :: pay(){
+bool check=false;
+cout << "Enter the ID of the student whose payment you'd like to complete: ";
+    string id;
+    cin >> id;
+  dat.clear();  // Clear the vector before reading new data
+    fstream file("student.txt", ios::in);
+    if(file.is_open()){
+        while(file >> temp >> te >> tem >> ge >> year >> semester>>pin){
+            dat.push_back(make_tuple(temp, te, tem, ge, year, semester,pin));
+        }
+    }
+    file.close();
+    payrec.clear();
+ fstream recsin("paymentrecords.txt",ios::in);
+  if (recsin.is_open()){
+            while (recsin>> temp>>semester>>holder){
+                payrec.push_back(make_tuple(temp,semester,holder));
+            }
+         } else {cout<<"Failure encountered during phased 2";}
+         recsin.close();
+sort(payrec.begin(),payrec.end());
+sort(dat.begin(),dat.end());
+//Find the student using the ID
+for (int i=0; i<dat.size(); i++){
+    if(get<0>(dat[i])==id){
+        cout<<"ID\t"<<"Name\t"<<"Year\t"<<"Term\t"
+        <<endl<<get<0>(dat[i])<<"\t"<<get<1>(dat[i])<<"\t"<<
+                    "\t"<<get<4>(dat[i])<<"\t"<<get<1>(payrec[i])<<endl; 
+
+//Check the status of student payment 
+    for (int j=0;j<4;j++){
+        if(get<4>(dat[i])==get<0>(courses[j])){
+            for(int k=0;k<payrec.size();k++){
+                if(get<0>(payrec[k])==id){
+            temp=get<0>(dat[i]);
+            te=get<1>(dat[i]);
+            year=get<4>(dat[i]);
+// Case 1 of student payment (if student paid unti the 1st term)
+            if(get<1>(payrec[k])==1){
+                cout<<"Payment for the second and thrid terms is yet to be completed. \n Enter '1' to complete payment for the only the next semester\n Press '2' to complete payment for both semesters ";
+                cin>>payselect;
+
+                if(payselect==1){
+                    check=false;
+                    cout<<"Due fee for the 2nd term is : "<<get<1>(courses[j]);
+                    cout<<"\nComplete payment: ";
+                    cin>>inputfee;
+                
+                  if (inputfee==get<1>(courses[j])){
+                        cout<<"Payment for the second term complete. Thank You!";
+                        get<2>(payrec[i])= get<2>(payrec[i]) + get<1>(courses[j]);
+                        get<1>(payrec[i])= 2;
+                        semester=get<1>(payrec[i]);
+                        holder=get<1>(courses[j]);
+                        
+                        check=true;
+            }
+
+                   else if(inputfee < get<1>(courses[j])){
+                    cout<<"You've not commited to the full fee. You need to pay an additional:"<<(get<1>(courses[j])-inputfee);
+                    cout<<"\nComplete payment for remaining amount: ";
+                    cin>>inputfee2;
+                    if(inputfee2 < (get<1>(courses[j])-inputfee)){
+                        cout<<"Could not complete registration due to inadequate payment. Any payment made has been refunded";
+                        return;
+                    
+                }  
+                else {
+                     cout<<"Payment for the second term complete. Thank You!";
+                        get<2>(payrec[i])= get<2>(payrec[i]) + get<1>(courses[j]);
+                        get<1>(payrec[i])= 2;
+                        semester=get<1>(payrec[i]);
+                        holder=get<1>(courses[j]);
+                         bool check=true;
+                }
+
+                } if(check==true){
+                receipt(temp,te, year, semester,holder);}
+                }
+            else if(payselect==2){
+                check=false;
+                    cout<<"Due fee for the both 2nd and 3rd semester is : "<<(2*get<1>(courses[j]));
+                    cout<<"\nComplete payment: ";
+                    cin>>inputfee;
+                     if (2*get<1>(courses[j])){
+                        cout<<"Payment for the third semester complete. Thank You!";
+                        get<2>(payrec[i])= get<2>(payrec[i]) + get<1>(courses[j]);
+                        get<1>(payrec[i])= 3;
+                        holder=2*get<1>(courses[j]);
+                        semester=get<1>(payrec[i])= 3;
+                         check=true;
+            }
+                   else if(inputfee < (2*get<1>(courses[j]))){
+                    cout<<"You've not commited to the full fee. You need to pay an additional:"<<((2*get<1>(courses[j]))-inputfee);
+                    cout<<"\nComplete payment for remaining amount: ";
+                    cin>>inputfee2;
+                    if(inputfee2 < ((2*get<1>(courses[j]))-inputfee)){
+                        cout<<"Could not complete registration due to inadequate payment. Any payment made has been refunded";
+                        return;
+                    } else {
+                        cout<<"Payment for upto third semester complete. Thank You!";
+                        get<2>(payrec[i])= get<2>(payrec[i]) + (2*get<1>(courses[j]));
+                        get<1>(payrec[i])= 3;
+                        semester=get<1>(payrec[i]);
+                        holder=get<1>(courses[j]);
+                         check=true;
+
+                    }
+             
+            } if (check==true){receipt(temp,te, year, semester,holder);}}
+        }
+        // Case 2 of student payment (if student payed until the 2nd term)
+         if(get<1>(payrec[i])==2){
+                cout<<"Payment for the thrid term is yet to be completed. \nEnter 1 if you'd like to continue: ";
+                cin>>payselect;
+
+                if(payselect==1){
+                    check=false;
+                    cout<<"Due fee for the 3rd term is : "<<get<1>(courses[j]);
+                    cout<<"\nComplete payment: ";
+                    cin>>inputfee;
+               
+                    if (inputfee==get<1>(courses[j])) {
+                        cout<<"Payment for the Third semester complete. Thank You!";
+                        get<2>(payrec[i])= get<2>(payrec[i]) + get<1>(courses[j]);
+                        get<1>(payrec[i])= 3;
+                         semester=get<1>(payrec[i]);
+                        holder=get<1>(courses[j]);
+                         check=true;
+
+                    }
+                   else if(inputfee < get<1>(courses[j])){
+                    cout<<"You've not commited to the full fee. You need to pay an additional:"<<(get<1>(courses[j])-inputfee);
