@@ -794,3 +794,202 @@ void Student::ExpenseM(){
         switch (choice) {
             case 1: 
                 registerExpense(expenses, outputFile);
+                  break;
+            case 2:
+                displayExpenses(filename);
+                break;
+            case 3:
+                modifyExpense(expenses, filename);
+                break;
+            case 4:
+                deleteExpense(expenses, filename);
+                break;
+            case 5:
+                return ;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+                break;
+        }
+    }
+        }
+
+void registerExpense(vector<Expense>& expenses, ofstream& outputFile) {
+    string item;
+    int cost;
+    int numEx;
+    cout<<"How many expenses do you want to add at a time: ";
+    cin>>numEx;
+    for(int i = 0; i < numEx; i++){
+        cout<<i+1<<". \n";
+        cout << "\tEnter the item name: ";
+        cin.ignore();
+        getline(cin, item);
+        cout << "\tEnter the cost: ";
+        cin >> cost;
+        Expense newExpense{item, cost};
+        expenses.push_back(newExpense);
+        outputFile << item << " \t\t\t" << cost << endl;
+    }
+    cout << "Your expenses has been registered." << endl;
+}
+
+void displayExpenses(const string& filename) {
+    ifstream inputFile(filename);
+// read expenses from file
+    if (inputFile.is_open()) {
+        string line;
+        
+        while (getline(inputFile, line)) {
+            cout << line << endl;
+        }
+        inputFile.close();
+    } else {
+        cout << "Unable to open file: " << filename << endl;
+    }
+
+}
+
+
+void modifyExpense(vector<Expense>& expenses, const string& filename) {
+    ifstream ifExpense(filename);
+    if (!ifExpense) {
+        cout << "Unable to open file: " << filename << endl;
+        return;
+    }
+
+    expenses.clear();  
+
+    Expense expense;
+    while (ifExpense >> expense.item >> expense.cost) {
+        expenses.push_back(expense);
+    }
+
+    int index;
+    cout << "Enter the index of the expense to be modified (Starts from 0): ";
+    cin >> index;
+    //Check if index exists
+    if (index >= 0 && index < expenses.size()) {
+        string item;
+       int cost;
+        cout << "\tEnter new item name: ";
+        cin.ignore();
+        getline(cin, item);
+        cout << "\tEnter new cost: ";
+        cin >> cost;
+
+        expenses[index].item = item;
+        expenses[index].cost = cost;
+       // Update file
+        ofstream outputFile(filename);
+        if (outputFile) {
+            for (const auto& expense : expenses) {
+                outputFile << expense.item << "\t\t\t" << expense.cost << endl;
+            }
+            outputFile.close();
+
+            cout << "The expense has been modified.\n\n\n" << endl;
+        } else {
+            cout << "Unable to open file: " << filename << endl;
+        }
+    } else {
+        cout << "The index you entered is invalid." << endl;
+    }
+}
+
+void deleteExpense(vector<Expense>& expenses, const string& filename) {
+    ifstream ifExpense(filename);
+    if (!ifExpense) {
+        cout << "Unable to open file: " << filename << endl;
+        return;
+    }
+    expenses.clear();  
+    Expense expense;
+    while (ifExpense >> expense.item >> expense.cost) {
+        expenses.push_back(expense);
+    }
+
+    int index;
+    cout << "Enter the index of the expense to be deleted: ";
+    cin >> index;
+    if (index >= 0 && index < expenses.size()) {
+        expenses.erase(expenses.begin() + index);
+     // update file
+        ofstream outputFile(filename);
+        if (outputFile) {
+            for (const auto& expense : expenses) {
+                outputFile << expense.item << "\t\t\t" << expense.cost << endl;
+            }
+            outputFile.close();
+
+            cout << "The expense has been deleted.\n\n\n" << endl;
+        } else {
+            cout << "Unable to open file: " << filename << endl;
+        }
+    } else {
+        cout << "The index you entered is invalid." << endl;
+    }
+}
+void Student::stat() {
+        vector<tuple<string, string, int, string, int, string, string>> dat;
+    vector<tuple<string, string, int>> payrec;
+    vector<Expense> expenses;
+     ifstream studentFile("student.txt");
+    string temp, te, ge, semester, pin;
+    int tem, year;
+    while(studentFile >> temp >> te >> tem >> ge >> year >> semester >> pin) {
+        dat.push_back(make_tuple(temp, te, tem, ge, year, semester,pin));
+    }
+    studentFile.close();
+
+    // Read payment records from file
+    ifstream paymentFile("paymentrecords.txt");
+    int holder;
+    while(paymentFile >> temp >> semester >> holder) {
+        payrec.push_back(make_tuple(temp,semester,holder));
+    }
+    paymentFile.close();
+
+    // Read expenses from file
+    ifstream expenseFile("expenses.txt");
+    string item;
+    int cost;
+    while(expenseFile >> item >> cost) {
+        expenses.push_back(Expense{item, cost});
+    }
+    expenseFile.close();
+    // Calculate student and profit statistics
+    int totalStudents = dat.size();
+    int maleStudents = 0;
+    int femaleStudents = 0;
+    int totalProfit = 0;
+
+    for(const auto& student : dat) {
+        if(get<3>(student) == "male") {
+            maleStudents++;
+        } else if(get<3>(student) == "female") {
+            femaleStudents++;
+        }
+    }
+
+    for(const auto& payment : payrec) {
+        totalProfit += get<2>(payment);
+    }
+
+    cout << "Total number of students: " << totalStudents << endl;
+    cout << "Number of male students: " << maleStudents << endl;
+    cout << "Number of female students: " << femaleStudents << endl;
+    cout << "Total profit: " << totalProfit << endl;
+ 
+
+    // Calculate expense statistics
+    int totalCost = 0;
+    for(const Expense& expense : expenses) {
+        totalCost += expense.cost;
+    }
+    cout<<"total cost: "<<totalCost<<endl;
+    cout<<"net profit: "<<totalProfit-totalCost<<endl;
+    double averageCost = double(totalCost) / expenses.size();
+
+    cout << "Total cost of all expenses: " << totalCost << endl;
+    cout << "Average cost per item: " << averageCost << endl;
+}
